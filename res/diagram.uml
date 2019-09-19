@@ -15,11 +15,11 @@ skinparam rectangle {
 
  package "Account" #WhiteSmoke {
     rectangle "Cloud Custodian" as CC #PeachPuff
+    rectangle "SQS" as SQS #PeachPuff
     rectangle "CloudWatch" as CW #PeachPuff
-    rectangle "Logging Bucket" as LB #PeachPuff
 }
 
-CC -> LB
-CC -down-> CW
+CC -> CW
+CC -down-> SQS
 
 @enduml 
