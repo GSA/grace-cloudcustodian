@@ -1,0 +1,25 @@
+@startuml
+skinparam {
+    ArrowColor Black
+    NoteBorderColor Black
+    UseCaseBorderColor Black
+}
+
+skinparam rectangle {
+    roundCorner 25
+    roundCorner 45
+    backgroundColor White
+}
+
+ header GRACE Cloud Custodian Overview
+
+ package "Account" #WhiteSmoke {
+    rectangle "Cloud Custodian" as CC #PeachPuff
+    rectangle "CloudWatch" as CW #PeachPuff
+    rectangle "Logging Bucket" as LB #PeachPuff
+}
+
+CC -> LB
+CC -down-> CW
+
+@enduml 
