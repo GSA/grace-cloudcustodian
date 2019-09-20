@@ -14,12 +14,20 @@ skinparam rectangle {
  header GRACE Cloud Custodian Overview
 
  package "Account" #WhiteSmoke {
-    rectangle "Cloud Custodian" as CC #PeachPuff
-    rectangle "SQS" as SQS #PeachPuff
-    rectangle "CloudWatch" as CW #PeachPuff
+    rectangle lamb #PeachPuff [
+	        <b>    Amazon Lambda    
+		====
+                Cloud Custodian Policies
+		    ]
+    rectangle "SQS Notifications" as SQS #PeachPuff
+    rectangle "CloudWatch Event Triggers" as CW #PeachPuff
+
+node "\nAWS Resources\n" as AR #White 
 }
 
-CC -> CW
-CC -down-> SQS
+CW -[hidden]d- AR
+lamb <- CW
+lamb -down-> SQS
+lamb ..> AR : Remediation Actions
 
-@enduml 
+@enduml
