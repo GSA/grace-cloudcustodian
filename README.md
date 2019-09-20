@@ -14,7 +14,7 @@ The code provided within this subcomponent will create...
 - [Public Domain](#license)
 
 ## <a name="diagram">Diagram</a>
-![grace-cloudcustodian layout](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.github.com/GSA/grace-cloudcustodian/master/res/diagram.uml)
+![grace-cloudcustodian layout](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.github.com/GSA/grace-cloudcustodian/update_README/res/diagram.uml)
 
 [top](#top)
 
