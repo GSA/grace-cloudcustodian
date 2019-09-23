@@ -22,6 +22,15 @@ The code provided within this subcomponent will create the AWS resource required
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| sender | \(required\) The eMail address of sender for AWS SES | string | n/a | yes |
+| schedule | \(required\) The frequency at which custodian policy is ran to check for compliance | string | `"rate(1 day)"` | yes |
+| s3_bucket | \(required\) S3 bucket name/id where config service histories and snapshots are saved | string | n/a | yes |
+| appenv | \(optional\) The environment in which the script is running (development, test, production) | string | `"development"` | no |
+| kms_key_arn | \(required\) ARN of KMS key to decrypt config service histories and snapshots | string | n/a | yes |
+| recipient | \(required\) The email address for aws account holder | string | `"grace-dev-alerts"` | yes |
+| mfa_false_template | \(required\) The SES template name of MFA false | string | `"MFAFalse"` | yes |
+| key_expiration_template | \(required\) The SES template name of AccessKey Expiration | string | `"KeyExpiration"` | yes |
+| password_expiration_template | \(required\) The SES template name of Password Expiration | string | `"PasswordExpiration"` | yes |
 
 [top](#top)
 
