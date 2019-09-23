@@ -51,6 +51,7 @@ The code provided within this subcomponent will create the AWS resource required
 * Usage
 
 ## <a name="security">Security Compliance</a>
+The GRACE Cloud Custodian subcomponent provides various levels of coverage for several [NIST Special Publication 800-53 (Rev. 4) Security Controls](https://nvd.nist.gov/800-53/Rev4/impact/moderate).  These security controls are designated for [FIPS 199 Moderate Impact Systems](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.199.pdf). Additional information regarding the implementation method utilized can be found within the [GRACE Component Control Coverage Repository](https://github.com/GSA/grace-ssp/blob/master/README.md).
 
 **Subcomponent approval status:** `Pending Assessment`
 
@@ -58,7 +59,7 @@ The code provided within this subcomponent will create the AWS resource required
 
 | Control Description | Control ID |
 |-|:-:|
-| Access Controls | [AC-2](https://nvd.nist.gov/800-53/Rev4/control/AC-2), [AC-6(9)](https://nvd.nist.gov/800-53/Rev4/control/AC-6#enhancement-9) |
+| Identification and Authentication Controls | [IA-5](https://nvd.nist.gov/800-53/Rev4/control/IA-5), [IA-5(1)](https://nvd.nist.gov/800-53/Rev4/control/IA-5#enhancement-1) |
 
 [top](#top)
 
