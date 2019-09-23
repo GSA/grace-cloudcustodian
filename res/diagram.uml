@@ -22,6 +22,7 @@ skinparam rectangle {
     rectangle "SQS" as SQS #PeachPuff
     rectangle "SES Notifications" as SES #PeachPuff
     rectangle "CloudWatch Event Triggers" as CW #PeachPuff
+    rectangle "S3 Bucket" as S3 #PeachPuff
 
 node "\nAWS Resources\n" as AR #White 
 }
@@ -31,6 +32,7 @@ lamb <- CW
 lamb -down-> SQS
 lamb ..> AR : Remediation Actions
 SQS -> SES
+S3 -> lamb
 
 @enduml
 
