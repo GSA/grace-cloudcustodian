@@ -8,7 +8,6 @@ The code provided within this subcomponent will create the AWS resource required
 - [Description](#description)
 - [Diagram](#diagram)
 - [Inputs](#inputs)
-- [Outputs](#outputs)
 - [Deployment Guide](#guide)
 - [Security Compliance](#security)
 - [Public Domain](#license)
@@ -31,13 +30,6 @@ The code provided within this subcomponent will create the AWS resource required
 | mfa_false_template | \(required\) The SES template name of MFA false | string | `"MFAFalse"` | yes |
 | key_expiration_template | \(required\) The SES template name of AccessKey Expiration | string | `"KeyExpiration"` | yes |
 | password_expiration_template | \(required\) The SES template name of Password Expiration | string | `"PasswordExpiration"` | yes |
-
-[top](#top)
-
-## <a name="output">Outputs</a>
-
-| Name | Description |
-|------|-------------|
 
 [top](#top)
 
