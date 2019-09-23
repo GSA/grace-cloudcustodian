@@ -1,19 +1,34 @@
 # <a name="top">GRACE Cloud Custodian Implementation</a>
 
 ## <a name="description">Description</a>
-The code provided within this subcomponent will create the AWS resource required for the implementation of several policies utilizing the [Cloud Custodian](https://cloudcustodian.io) Rules Engine. Cloud Custodian is an open source tool developed by Capital One to help provide automated governance, security, compliance, and cost optimization to their cloud environments. The grace-cloudcustodian subcomponent focuses on providing policies around IAM user managment and helps to cover several Security Controls dealing with Identification and Authentication.
+The code provided within this subcomponent will create the AWS resource required for the implementation of several policies utilizing the [Cloud Custodian](https://cloudcustodian.io) serverless rules engine. Cloud Custodian is an open source tool developed by Capital One to help provide automated governance, security, compliance, and cost optimization to their cloud environments. The grace-cloudcustodian subcomponent focuses on providing policies around IAM user managment and helps to cover several Security Controls dealing with Identification and Authentication.
 
 ## <a name="contents">Table of Contents</a>
 
 - [Description](#description)
 - [Diagram](#diagram)
+- [Policies](#policies)
 - [Inputs](#inputs)
 - [Deployment Guide](#guide)
 - [Security Compliance](#security)
 - [Public Domain](#license)
 
 ## <a name="diagram">Diagram</a>
-![grace-cloudcustodian layout](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.github.com/GSA/grace-cloudcustodian/update_README/res/diagram.uml)
+![grace-cloudcustodian layout](http://www.plantuml.com/plantuml/proxy?cache=no&fmt=svg&src=https://raw.github.com/GSA/grace-cloudcustodian/master/res/diagram.uml)
+
+[top](#top)
+
+## <a name="policies">Policies</a>
+
+| Name | Description | Schedule | 
+|------|-------------|----------|
+| iam-user-keys-expiration | Notifies IAM users with AWS Access Keys older than 80 days  | Daily |
+| iam-user-keys-disable | Deletes IAM user AWS Access Keys older than 90 days  | Daily |
+| iam-user-mfa-false | Notifies IAM users that have not activated MFA after 24 hours  | Daily |
+| iam-user-password-expiration | Notifies IAM users with passwords older than 80 days  | Daily |
+| iam-user-password-disable | Deletes console access for IAM users with passwords older than 90 days  | Daily |
+| iam-new-user-initial-password-expire | Deletes console access and access keys for IAM users that have not changed their initial temporary password within 24 hours  | Daily |
+
 
 [top](#top)
 
