@@ -1,7 +1,7 @@
 # <a name="top">GRACE Cloud Custodian Implementation</a>[![CircleCI](https://circleci.com/gh/GSA/grace-cloudcustodian.svg?style=svg&circle-token=3ba172998300c4ff769a83484c82c8305c8357e7)](https://circleci.com/gh/GSA/grace-cloudcustodian)
 
 ## <a name="description">Description</a>
-The code provided within this subcomponent will create the AWS resource required for the implementation of several policies utilizing the Cloud Custodian Rules Engine. Cloud Custodian is an open source tool developed by Capital One to help provide automated governance, security, compliance, and cost optimization to their cloud environments. The grace-cloudcustodian subcomponent focuses on providing policies around IAM user managment and helps to cover several Security Controls dealing with Identification and Authentication.
+The code provided within this subcomponent will create the AWS resource required for the implementation of several policies utilizing the [Cloud Custodian](https://cloudcustodian.io) Rules Engine. Cloud Custodian is an open source tool developed by Capital One to help provide automated governance, security, compliance, and cost optimization to their cloud environments. The grace-cloudcustodian subcomponent focuses on providing policies around IAM user managment and helps to cover several Security Controls dealing with Identification and Authentication.
 
 ## <a name="contents">Table of Contents</a>
 
