@@ -1,0 +1,38 @@
+@startuml
+skinparam {
+    ArrowColor Black
+    NoteBorderColor Black
+    UseCaseBorderColor Black
+}
+
+skinparam rectangle {
+    roundCorner 25
+    roundCorner 45
+    backgroundColor White
+}
+
+ header GRACE Cloud Custodian Overview
+
+ package "Account" #WhiteSmoke {
+    rectangle lamb #PeachPuff [
+	        <b>    Amazon Lambda    
+		====
+                Cloud Custodian Policies
+		    ]
+    rectangle "SQS" as SQS #PeachPuff
+    rectangle "SES Notifications" as SES #PeachPuff
+    rectangle "CloudWatch Event Triggers" as CW #PeachPuff
+    rectangle "S3 Bucket" as S3 #PeachPuff
+
+node "\nAWS Resources\n" as AR #White 
+}
+
+CW -[hidden]d- AR
+lamb <- CW
+lamb -down-> SQS
+lamb ..> AR : Remediation Actions
+SQS -> SES
+S3 -> lamb
+
+@enduml
+
