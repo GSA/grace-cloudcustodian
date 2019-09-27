@@ -29,7 +29,7 @@ The code provided within this subcomponent will create the AWS resource required
 | iam-user-mfa-false | Notifies IAM users that have not activated MFA after 24 hours  | Daily |
 | iam-user-password-expiration | Notifies IAM users with passwords older than 80 days  | Daily |
 | iam-user-password-disable | Deletes console access for IAM users with passwords older than 90 days  | Daily |
-| iam-new-user-initial-password-expire | Deletes console access and access keys for IAM users that have not changed their initial temporary password within 24 hours  | Daily |
+| iam-new-user-initial-password-expire | Deletes console access and access keys for IAM users that have not changed their initial temporary password within 24 hours  | Hourly |
 
 
 [top](#top)
