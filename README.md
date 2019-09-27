@@ -10,6 +10,7 @@ The code provided within this subcomponent will create the AWS resource required
 - [Policies](#policies)
 - [Inputs](#inputs)
 - [Deployment Guide](#guide)
+- [Usage](#usage)
 - [Security Compliance](#security)
 - [Public Domain](#license)
 
@@ -58,7 +59,10 @@ The code provided within this subcomponent will create the AWS resource required
         - provider.aws ~v2.24.0
         - provider.template ~v2.1.2
 
-* Usage
+[top](#top)
+
+## <a name="usage">Usage</a>
+
 To use the Cloud Custodian terraform module to deploy custom policies as lambda functions, you will be required to download the  binary release from Github.
 
 ## <a name="security">Security Compliance</a>
