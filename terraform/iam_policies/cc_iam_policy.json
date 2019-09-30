@@ -1,0 +1,35 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:*",
+                "lambda:*",
+                "sqs:*",
+		            "ses:*",
+		            "securityhub:*"
+            ],
+            "Resource": "*"
+        },
+	{
+            "Effect": "Allow",
+            "Action": "iam:CreateServiceLinkedRole",
+            "Resource": "*",
+            "Condition": {
+                "StringLike": {
+                    "iam:AWSServiceName": "securityhub.amazonaws.com"
+                }
+            }
+        },
+	{
+            "Effect": "Allow",
+            "Action": [
+                "iam:DeleteAccessKey",
+                "iam:UpdateAccessKey",
+                "iam:DeleteLoginProfile"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

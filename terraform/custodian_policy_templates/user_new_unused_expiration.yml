@@ -1,0 +1,25 @@
+policies:
+  - name: iam-new-user-initial-password-expire
+    resource: iam-user
+    mode:
+      type: periodic
+      schedule: "rate(1 hour)"
+      timeout: 300
+      role: ${cc_role}
+    filters:
+    - type: credential
+      key: password_enabled
+      value: true
+    - type: credential
+      key: password_last_used
+      value: absent
+    - type: credential
+      key: user_creation_time
+      value_type: age
+      value: 1
+      op: greater-than
+    actions:
+    - type: delete
+      options:
+        - console-access
+        - access-keys

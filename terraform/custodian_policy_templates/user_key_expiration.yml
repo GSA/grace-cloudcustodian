@@ -1,0 +1,38 @@
+policies:
+  - name: iam-user-keys-expiration
+    resource: iam-user
+    mode:
+      type: periodic
+      schedule: "${cc_schedule}"
+      timeout: 300
+      packages: [boto3, botocore, urllib3]
+      role: ${cc_role}
+    filters:
+      - type: access-key
+        key: Status
+        value: Active
+      - type: group
+        key: GroupName
+        value: Developers
+      - type: access-key
+        key: CreateDate
+        value_type: age
+        value: 80
+        op: greater-than
+    actions:
+      - type: post-finding
+        description: |
+          User Key Expiration
+        types:
+          - "Software and Configuration Checks/AWS Security Best Practices"
+        severity: 10
+        severity_normalized: 10
+      - type: notify
+        priority_header: '2'
+        subject: User Password Expired
+        to:
+          - ${sender}
+        template: ${key_expiration_template}
+        transport:
+          type: sqs
+          queue: ${cc_sqs}

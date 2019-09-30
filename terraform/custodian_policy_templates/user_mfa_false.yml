@@ -1,0 +1,39 @@
+policies:
+  - name: iam-user-mfa-false
+    resource: iam-user
+    mode:
+      type: periodic
+      schedule: "${cc_schedule}"
+      timeout: 300
+      packages: [boto3, botocore, urllib3]
+      role: ${cc_role}
+    filters:
+      - type: value
+        key: ${cc_excluded_tag}
+        op: ne
+        value: ${cc_excluded_value}
+      - type: credential
+        key: mfa_active
+        value: false
+      - type: value
+        key: CreateDate
+        op: greater-than
+        value_type: age
+        value: 1
+    actions:
+      - type: post-finding
+        description: |
+          User Key Expiration
+        types:
+          - "Software and Configuration Checks/AWS Security Best Practices"
+        severity: 10
+        severity_normalized: 10
+      - type: notify
+        priority_header: '2'
+        subject: User MFA Not Set
+        to:
+          - ${sender}
+        template: ${mfa_false_template}
+        transport:
+          type: sqs
+          queue: ${cc_sqs}
