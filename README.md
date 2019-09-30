@@ -10,6 +10,7 @@ The code provided within this subcomponent will create the AWS resource required
 - [Policies](#policies)
 - [Inputs](#inputs)
 - [Deployment Guide](#guide)
+- [Usage](#usage)
 - [Security Compliance](#security)
 - [Public Domain](#license)
 
@@ -45,6 +46,9 @@ The code provided within this subcomponent will create the AWS resource required
 | mfa_false_template | \(required\) The SES template name of MFA false | string | `"MFAFalse"` | yes |
 | key_expiration_template | \(required\) The SES template name of AccessKey Expiration | string | `"KeyExpiration"` | yes |
 | password_expiration_template | \(required\) The SES template name of Password Expiration | string | `"PasswordExpiration"` | yes |
+| temp_pass_template | \(required\) The SES template name of Temp Password Expired | string | `"TempPass"` | yes |
+| excluded_tag | \(required\) The userprofile tags assigned to ServiceAccounts that will be excluded from being disabled | string | `"tag:ServiceAccount"` | yes |
+| excluded_value | \(required\) The key:value pair assigned to exclude a target userprofile from being disabled. | string | `"Excluded"` | yes |
 
 [top](#top)
 
@@ -55,7 +59,11 @@ The code provided within this subcomponent will create the AWS resource required
         - provider.aws ~v2.24.0
         - provider.template ~v2.1.2
 
-* Usage
+[top](#top)
+
+## <a name="usage">Usage</a>
+
+To use the Cloud Custodian terraform module to deploy custom policies as lambda functions, you will be required to download the  binary release from Github.
 
 ## <a name="security">Security Compliance</a>
 The GRACE Cloud Custodian subcomponent provides various levels of coverage for several [NIST Special Publication 800-53 (Rev. 4) Security Controls](https://nvd.nist.gov/800-53/Rev4/impact/moderate).  These security controls are designated for [FIPS 199 Moderate Impact Systems](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.199.pdf). Additional information regarding the implementation method utilized can be found within the [GRACE Component Control Coverage Repository](https://github.com/GSA/grace-ssp/blob/master/README.md).
