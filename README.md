@@ -9,7 +9,7 @@ The code provided within this subcomponent will create the AWS resource required
 
 - [Description](#description)
 - [Diagram](#diagram)
-- [Policies](#policies)
+- [Cloud Custodian Policies](#policies)
 - [Inputs](#inputs)
 - [Deployment Guide](#guide)
 - [Security Compliance](#security)
@@ -20,7 +20,7 @@ The code provided within this subcomponent will create the AWS resource required
 
 [top](#top)
 
-## <a name="policies">Policies</a>
+## <a name="policies">Cloud Custodian Policies</a>
 
 | Name | Description | Schedule | 
 |------|-------------|----------|
