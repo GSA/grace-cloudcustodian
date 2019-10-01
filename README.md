@@ -3,11 +3,13 @@
 ## <a name="description">Description</a>
 The code provided within this subcomponent will create the AWS resource required for the implementation of several policies utilizing the [Cloud Custodian](https://cloudcustodian.io) serverless rules engine. Cloud Custodian is an open source tool developed by Capital One to help provide automated governance, security, compliance, and cost optimization to their cloud environments. The grace-cloudcustodian subcomponent focuses on providing policies around IAM user managment and helps to cover several Security Controls dealing with Identification and Authentication.
 
+>NOTE: Additional information reagarding the usage and configuration of Cloud Custodian can be found [here](https://github.com/cloud-custodian/cloud-custodian)
+
 ## <a name="contents">Table of Contents</a>
 
 - [Description](#description)
 - [Diagram](#diagram)
-- [Policies](#policies)
+- [Cloud Custodian Policies](#policies)
 - [Inputs](#inputs)
 - [Deployment Guide](#guide)
 - [Usage](#usage)
@@ -19,7 +21,7 @@ The code provided within this subcomponent will create the AWS resource required
 
 [top](#top)
 
-## <a name="policies">Policies</a>
+## <a name="policies">Cloud Custodian Policies</a>
 
 | Name | Description | Schedule | 
 |------|-------------|----------|
@@ -28,7 +30,7 @@ The code provided within this subcomponent will create the AWS resource required
 | iam-user-mfa-false | Notifies IAM users that have not activated MFA after 24 hours  | Daily |
 | iam-user-password-expiration | Notifies IAM users with passwords older than 80 days  | Daily |
 | iam-user-password-disable | Deletes console access for IAM users with passwords older than 90 days  | Daily |
-| iam-new-user-initial-password-expire | Deletes console access and access keys for IAM users that have not changed their initial temporary password within 24 hours  | Daily |
+| iam-new-user-initial-password-expire | Deletes console access and access keys for IAM users that have not changed their initial temporary password within 24 hours  | Hourly |
 
 
 [top](#top)
@@ -74,7 +76,7 @@ The GRACE Cloud Custodian subcomponent provides various levels of coverage for s
 
 | Control Description | Control ID |
 |-|:-:|
-| Identification and Authentication Controls | [IA-5](https://nvd.nist.gov/800-53/Rev4/control/IA-5), [IA-5(1)](https://nvd.nist.gov/800-53/Rev4/control/IA-5#enhancement-1) |
+| Identification and Authentication Controls | [IA-4](https://nvd.nist.gov/800-53/Rev4/control/IA-4), [IA-5](https://nvd.nist.gov/800-53/Rev4/control/IA-5), [IA-5(1)](https://nvd.nist.gov/800-53/Rev4/control/IA-5#enhancement-1) |
 
 [top](#top)
 
