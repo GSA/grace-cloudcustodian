@@ -19,6 +19,22 @@ policies:
       value: 1
       op: greater-than
     actions:
+    - type: post-finding
+      description: |
+        New user temp password expired
+      types:
+        - "Software and Configuration Checks/AWS Security Best Practices"
+      severity: 10
+      severity_normalized: 10
+    - type: notify
+      priority_header: '2'
+      subject: New user temp password expired
+      to:
+        - ${sender}
+      template: ${temp_pass_template}
+      transport:
+        type: sqs
+        queue: ${cc_sqs}
     - type: delete
       options:
         - console-access
