@@ -76,6 +76,7 @@ The GRACE Cloud Custodian subcomponent provides various levels of coverage for s
 
 | Control Description | Control ID |
 |-|:-:|
+| Access Controls | [AC-2](https://nvd.nist.gov/800-53/Rev4/control/AC-2), [AC-2(1)](https://nvd.nist.gov/800-53/Rev4/control/AC-2#enhancement-1), [AC-2(3)](https://nvd.nist.gov/800-53/Rev4/control/AC-2#enhancement-3), [AC-2(4)](https://nvd.nist.gov/800-53/Rev4/control/AC-2#enhancement-4)  |
 | Identification and Authentication Controls | [IA-4](https://nvd.nist.gov/800-53/Rev4/control/IA-4), [IA-5](https://nvd.nist.gov/800-53/Rev4/control/IA-5), [IA-5(1)](https://nvd.nist.gov/800-53/Rev4/control/IA-5#enhancement-1) |
 
 [top](#top)
