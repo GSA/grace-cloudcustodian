@@ -29,7 +29,7 @@ resource "aws_sqs_queue" "cc_queue" {
 }
 
 resource "template_dir" "policy" {
-  source_dir      = ${path.module}"/custodian_policy_templates"
+  source_dir      = "${path.module}/custodian_policy_templates"
   destination_dir = "${path.cwd}/policies"
 
   vars = {
