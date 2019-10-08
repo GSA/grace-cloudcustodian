@@ -4,9 +4,9 @@ variable "sender" {
 }
 
 variable "schedule" {
-  type = "string"
+  type        = "string"
   description = "The frequency at which custodian policy is ran to check for compliance."
-  default = "rate(1 day)"
+  default     = "rate(1 day)"
 }
 
 variable "s3_bucket" {
@@ -27,7 +27,7 @@ variable "kms_key_arn" {
 
 variable "recipient" {
   type        = "string"
-  description = "(required) email address for aws account holder" 
+  description = "(required) email address for aws account holder"
   default     = "grace-dev-alerts"
 }
 
