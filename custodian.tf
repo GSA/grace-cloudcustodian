@@ -43,6 +43,7 @@ resource "template_dir" "policy" {
     key_expiration_template      = "${var.key_expiration_template}"
     mfa_false_template           = "${var.mfa_false_template}"
     password_expiration_template = "${var.password_expiration_template}"
+    temp_pass_template           = "${var.temp_pass_template}"
   }
 }
 

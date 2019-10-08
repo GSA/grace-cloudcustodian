@@ -18,3 +18,10 @@ resource "aws_ses_template" "password_expiration" {
   html    = "<h1>Hello,</h1><p>The password for the user {user_name} needs to be renewed!</p>"
   text    = "The password for the user {user_name} needs to be renewed!"
 }
+
+resource "aws_ses_template" "temp_pass" {
+  name    = "${var.temp_pass_template}"
+  subject = "The temporary password for the user {user_name} has not been changed!"
+  html    = "<h1>Hello,</h1><p>The temporary password for the user {user_name} has not been changed within the 24 hour period. Console access has been disabled for user {user_name}.</p>"
+  text    = "The temporary password for the user {user_name} has not been changed. Console access has been disabled for user {user_name}."
+}

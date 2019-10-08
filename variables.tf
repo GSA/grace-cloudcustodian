@@ -60,3 +60,9 @@ variable "excluded_value" {
   description = "(reqired) excluded users to disable"
   default     = "Excluded"
 }
+
+variable "temp_pass_template" {
+  type        = "string"
+  description = "(reqired) SES template name of Temp Password Expired"
+  default     = "TempPass"
+}
