@@ -21,7 +21,7 @@ resource "aws_iam_policy_attachment" "attach-policy" {
 }
 
 resource "aws_sqs_queue" "cc_queue" {
-  name                      = "Cloud_Custodian_SQS"
+  name = "Cloud_Custodian_SQS"
 
   tags = {
     Name = "Cloud Custodian"
@@ -35,8 +35,8 @@ resource "template_dir" "policy" {
   vars = {
     cc_role                      = "${aws_iam_role.cc_role.arn}"
     cc_sqs                       = "${aws_sqs_queue.cc_queue.id}"
-    cc_schedule                  = "${var.schedule}" 
-    cc_excluded_tag              = "${var.excluded_tag}" 
+    cc_schedule                  = "${var.schedule}"
+    cc_excluded_tag              = "${var.excluded_tag}"
     cc_excluded_value            = "${var.excluded_value}"
     recipient                    = "${var.recipient}"
     sender                       = "${var.sender}"
@@ -68,7 +68,7 @@ resource "template_dir" "lambda" {
 
 # SQS Lambda Function
 resource "aws_iam_role" "iam_for_sqs" {
-  name = "SQS-Lambda-Role"
+  name               = "SQS-Lambda-Role"
   assume_role_policy = "${file("iam_policies/assumerolepolicy.json")}"
   tags = {
     Name = "Cloud Custodian"
@@ -76,15 +76,15 @@ resource "aws_iam_role" "iam_for_sqs" {
 }
 
 resource "aws_iam_policy" "lambda_sqs_policy" {
-  name = "Lambda_SQS_Policy"
-  path = "/"
+  name        = "Lambda_SQS_Policy"
+  path        = "/"
   description = "IAM policy for SQS Lambda function"
 
   policy = "${file("iam_policies/lambda_iam_policy.json")}"
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_sqs_attachment" {
-  role = "${aws_iam_role.iam_for_sqs.name}"
+  role       = "${aws_iam_role.iam_for_sqs.name}"
   policy_arn = "${aws_iam_policy.lambda_sqs_policy.arn}"
 }
 
@@ -99,13 +99,13 @@ resource "null_resource" "sqs_lambda_functions" {
 }
 
 resource "aws_lambda_function" "sqs_mailer" {
-  depends_on = ["null_resource.sqs_lambda_functions"]
-  filename = "lambda/sqs_mailer.zip"
-  function_name = "sqs_mailer"
-  role = "${aws_iam_role.iam_for_sqs.arn}"
-  handler = "sqs_mailer.lambda_handler"
-  runtime = "python3.6"
-  timeout = 10
+  depends_on       = ["null_resource.sqs_lambda_functions"]
+  filename         = "lambda/sqs_mailer.zip"
+  function_name    = "sqs_mailer"
+  role             = "${aws_iam_role.iam_for_sqs.arn}"
+  handler          = "sqs_mailer.lambda_handler"
+  runtime          = "python3.6"
+  timeout          = 10
   source_code_hash = "${base64sha256("lambda/sqs_mailer.zip")}"
   environment {
     variables = {
@@ -115,10 +115,10 @@ resource "aws_lambda_function" "sqs_mailer" {
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_event" {
-  batch_size        = 1
-  event_source_arn  = "${aws_sqs_queue.cc_queue.arn}"
-  enabled           = true
-  function_name     = "${aws_lambda_function.sqs_mailer.arn}"
+  batch_size       = 1
+  event_source_arn = "${aws_sqs_queue.cc_queue.arn}"
+  enabled          = true
+  function_name    = "${aws_lambda_function.sqs_mailer.arn}"
 }
 
 resource "null_resource" "cc_lambda_functions" {
