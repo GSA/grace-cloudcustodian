@@ -33,7 +33,7 @@ resource "template_dir" "policy" {
   destination_dir = "${path.cwd}/policies"
 
   vars = {
-    cc_role                      = ${aws_iam_role.cc_role.arn}"
+    cc_role                      = "${aws_iam_role.cc_role.arn}"
     cc_sqs                       = "${aws_sqs_queue.cc_queue.id}"
     cc_schedule                  = var.schedule
     cc_excluded_tag              = var.excluded_tag
