@@ -72,7 +72,7 @@ To use the Cloud Custodian terraform module to deploy custom policies as lambda 
 
 ### Example Usage
 
-To inventory a single AWS account to which the Lambda function is deployed,
+To apply custodian policies to a single AWS account to which the Lambda function is deployed,
 include the following in your root terraform module:
 
 ```
