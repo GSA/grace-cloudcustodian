@@ -1,13 +1,13 @@
 resource "aws_iam_policy" "policy" {
   name        = "Cloud_Custodian_Policy"
   description = "Cloud Custodian Policy"
-  policy      = "${file("iam_policies/cc_iam_policy.json")}"
+  policy      = file("iam_policies/cc_iam_policy.json")
 }
 
 resource "aws_iam_role" "cc_role" {
   name = "Cloud_Custodian_Role"
 
-  assume_role_policy = "${file("iam_policies/assumerolepolicy.json")}"
+  assume_role_policy = file("iam_policies/assumerolepolicy.json")
 
   tags = {
     Name = "Cloud Custodian"
@@ -69,7 +69,7 @@ resource "template_dir" "lambda" {
 # SQS Lambda Function
 resource "aws_iam_role" "iam_for_sqs" {
   name               = "SQS-Lambda-Role"
-  assume_role_policy = "${file("iam_policies/assumerolepolicy.json")}"
+  assume_role_policy = file("iam_policies/assumerolepolicy.json")
   tags = {
     Name = "Cloud Custodian"
   }
@@ -80,7 +80,7 @@ resource "aws_iam_policy" "lambda_sqs_policy" {
   path        = "/"
   description = "IAM policy for SQS Lambda function"
 
-  policy = "${file("iam_policies/lambda_iam_policy.json")}"
+  policy = file("iam_policies/lambda_iam_policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_sqs_attachment" {
