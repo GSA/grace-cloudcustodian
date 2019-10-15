@@ -1,13 +1,13 @@
 resource "aws_iam_policy" "policy" {
   name        = "Cloud_Custodian_Policy"
   description = "Cloud Custodian Policy"
-  policy      = "${file("iam_policies/cc_iam_policy.json")}"
+  policy      = file("iam_policies/cc_iam_policy.json")
 }
 
 resource "aws_iam_role" "cc_role" {
   name = "Cloud_Custodian_Role"
 
-  assume_role_policy = "${file("iam_policies/assumerolepolicy.json")}"
+  assume_role_policy = file("iam_policies/assumerolepolicy.json")
 
   tags = {
     Name = "Cloud Custodian"
@@ -35,15 +35,15 @@ resource "template_dir" "policy" {
   vars = {
     cc_role                      = "${aws_iam_role.cc_role.arn}"
     cc_sqs                       = "${aws_sqs_queue.cc_queue.id}"
-    cc_schedule                  = "${var.schedule}"
-    cc_excluded_tag              = "${var.excluded_tag}"
-    cc_excluded_value            = "${var.excluded_value}"
-    recipient                    = "${var.recipient}"
-    sender                       = "${var.sender}"
-    key_expiration_template      = "${var.key_expiration_template}"
-    mfa_false_template           = "${var.mfa_false_template}"
-    password_expiration_template = "${var.password_expiration_template}"
-    temp_pass_template           = "${var.temp_pass_template}"
+    cc_schedule                  = var.schedule
+    cc_excluded_tag              = var.excluded_tag
+    cc_excluded_value            = var.excluded_value
+    recipient                    = var.recipient
+    sender                       = var.sender
+    key_expiration_template      = var.key_expiration_template
+    mfa_false_template           = var.mfa_false_template
+    password_expiration_template = var.password_expiration_template
+    temp_pass_template           = var.temp_pass_template
   }
 }
 
@@ -69,7 +69,7 @@ resource "template_dir" "lambda" {
 # SQS Lambda Function
 resource "aws_iam_role" "iam_for_sqs" {
   name               = "SQS-Lambda-Role"
-  assume_role_policy = "${file("iam_policies/assumerolepolicy.json")}"
+  assume_role_policy = file("iam_policies/assumerolepolicy.json")
   tags = {
     Name = "Cloud Custodian"
   }
@@ -80,7 +80,7 @@ resource "aws_iam_policy" "lambda_sqs_policy" {
   path        = "/"
   description = "IAM policy for SQS Lambda function"
 
-  policy = "${file("iam_policies/lambda_iam_policy.json")}"
+  policy = file("iam_policies/lambda_iam_policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_sqs_attachment" {
@@ -109,7 +109,7 @@ resource "aws_lambda_function" "sqs_mailer" {
   source_code_hash = "${base64sha256("lambda/sqs_mailer.zip")}"
   environment {
     variables = {
-      sender = "${var.sender}"
+      sender = var.sender
     }
   }
 }
