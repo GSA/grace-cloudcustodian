@@ -13,6 +13,7 @@ The code provided within this subcomponent will create the AWS resource required
 - [Inputs](#inputs)
 - [Deployment Guide](#guide)
 - [Usage](#usage)
+    - [Example Usage](#example-usage)
 - [Security Compliance](#security)
 - [Public Domain](#license)
 
@@ -66,6 +67,21 @@ The code provided within this subcomponent will create the AWS resource required
 ## <a name="usage">Usage</a>
 
 To use the Cloud Custodian terraform module to deploy custom policies as lambda functions, you will be required to download the  binary release from Github.
+
+[top](#top)
+
+### Example Usage
+
+To inventory a single AWS account to which the Lambda function is deployed,
+include the following in your root terraform module:
+
+```
+module "example_grace_cc" {
+  source       = "github.com/GSA/grace-cloudcustodian?ref=v0.1.0"
+  appenv       = "environment"
+  project_name = "your-project"
+}
+```
 
 ## <a name="security">Security Compliance</a>
 The GRACE Cloud Custodian subcomponent provides various levels of coverage for several [NIST Special Publication 800-53 (Rev. 4) Security Controls](https://nvd.nist.gov/800-53/Rev4/impact/moderate).  These security controls are designated for [FIPS 199 Moderate Impact Systems](https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.199.pdf). Additional information regarding the implementation method utilized can be found within the [GRACE Component Control Coverage Repository](https://github.com/GSA/grace-ssp/blob/master/README.md).
