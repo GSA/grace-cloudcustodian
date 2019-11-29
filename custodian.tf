@@ -1,13 +1,13 @@
 resource "aws_iam_policy" "policy" {
   name        = "Cloud_Custodian_Policy"
   description = "Cloud Custodian Policy"
-  policy      = file("iam_policies/cc_iam_policy.json")
+  policy      = file("${path.module}/iam_policies/cc_iam_policy.json")
 }
 
 resource "aws_iam_role" "cc_role" {
   name = "Cloud_Custodian_Role"
 
-  assume_role_policy = file("iam_policies/assumerolepolicy.json")
+  assume_role_policy = file("${path.module}/iam_policies/assumerolepolicy.json")
 
   tags = {
     Name = "Cloud Custodian"
@@ -30,7 +30,7 @@ resource "aws_sqs_queue" "cc_queue" {
 
 resource "template_dir" "policy" {
   source_dir      = "${path.module}/custodian_policy_templates"
-  destination_dir = "${path.cwd}/policies"
+  destination_dir = "${path.module}/policies"
 
   vars = {
     cc_role                      = "${aws_iam_role.cc_role.arn}"
@@ -48,18 +48,19 @@ resource "template_dir" "policy" {
 }
 
 resource "null_resource" "custodian_initialization_function" {
-  depends_on = ["template_dir.lambda"]
+  depends_on = [template_dir.lambda]
   triggers = {
     build_number = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command = "scripts/init.sh"
+    working_dir = path.module
+    command     = "./scripts/init.sh"
   }
 }
 
 resource "template_dir" "lambda" {
   source_dir      = "${path.module}/lambda_templates"
-  destination_dir = "${path.cwd}/lambda"
+  destination_dir = "${path.module}/lambda"
 
   vars = {
     cc_sqs = "${aws_sqs_queue.cc_queue.id}"
@@ -69,7 +70,7 @@ resource "template_dir" "lambda" {
 # SQS Lambda Function
 resource "aws_iam_role" "iam_for_sqs" {
   name               = "SQS-Lambda-Role"
-  assume_role_policy = file("iam_policies/assumerolepolicy.json")
+  assume_role_policy = file("${path.module}/iam_policies/assumerolepolicy.json")
   tags = {
     Name = "Cloud Custodian"
   }
@@ -80,7 +81,7 @@ resource "aws_iam_policy" "lambda_sqs_policy" {
   path        = "/"
   description = "IAM policy for SQS Lambda function"
 
-  policy = file("iam_policies/lambda_iam_policy.json")
+  policy = file("${path.module}/iam_policies/lambda_iam_policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_sqs_attachment" {
@@ -89,24 +90,25 @@ resource "aws_iam_role_policy_attachment" "lambda_sqs_attachment" {
 }
 
 resource "null_resource" "sqs_lambda_functions" {
-  depends_on = ["template_dir.lambda"]
+  depends_on = [template_dir.lambda]
   triggers = {
     build_number = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command = "scripts/zip_files.sh"
+    working_dir = path.module
+    command     = "./scripts/zip_files.sh"
   }
 }
 
 resource "aws_lambda_function" "sqs_mailer" {
-  depends_on       = ["null_resource.sqs_lambda_functions"]
-  filename         = "lambda/sqs_mailer.zip"
+  depends_on       = [null_resource.sqs_lambda_functions]
+  filename         = "${path.module}/lambda/sqs_mailer.zip"
   function_name    = "sqs_mailer"
-  role             = "${aws_iam_role.iam_for_sqs.arn}"
+  role             = aws_iam_role.iam_for_sqs.arn
   handler          = "sqs_mailer.lambda_handler"
   runtime          = "python3.6"
   timeout          = 10
-  source_code_hash = "${base64sha256("lambda/sqs_mailer.zip")}"
+  source_code_hash = "${base64sha256("${path.module}/lambda/sqs_mailer.zip")}"
   environment {
     variables = {
       sender = var.sender
@@ -116,18 +118,18 @@ resource "aws_lambda_function" "sqs_mailer" {
 
 resource "aws_lambda_event_source_mapping" "sqs_event" {
   batch_size       = 1
-  event_source_arn = "${aws_sqs_queue.cc_queue.arn}"
+  event_source_arn = aws_sqs_queue.cc_queue.arn
   enabled          = true
-  function_name    = "${aws_lambda_function.sqs_mailer.arn}"
+  function_name    = aws_lambda_function.sqs_mailer.arn
 }
 
 resource "null_resource" "cc_lambda_functions" {
-  depends_on = ["template_dir.policy"]
+  depends_on = [template_dir.policy]
   triggers = {
     build_number = "${timestamp()}"
   }
   provisioner "local-exec" {
-    command = "scripts/run_policies.sh"
+    working_dir = path.module
+    command     = "./scripts/run_policies.sh"
   }
 }
-
