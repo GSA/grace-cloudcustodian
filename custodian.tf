@@ -16,8 +16,8 @@ resource "aws_iam_role" "cc_role" {
 
 resource "aws_iam_policy_attachment" "attach-policy" {
   name       = "policy-attachment"
-  roles      = ["${aws_iam_role.cc_role.name}"]
-  policy_arn = "${aws_iam_policy.policy.arn}"
+  roles      = [aws_iam_role.cc_role.name]
+  policy_arn = aws_iam_policy.policy.arn
 }
 
 resource "aws_sqs_queue" "cc_queue" {
@@ -33,8 +33,8 @@ resource "template_dir" "policy" {
   destination_dir = "${path.module}/policies"
 
   vars = {
-    cc_role                      = "${aws_iam_role.cc_role.arn}"
-    cc_sqs                       = "${aws_sqs_queue.cc_queue.id}"
+    cc_role                      = aws_iam_role.cc_role.arn
+    cc_sqs                       = aws_sqs_queue.cc_queue.id
     cc_schedule                  = var.schedule
     cc_excluded_tag              = var.excluded_tag
     cc_excluded_value            = var.excluded_value
@@ -50,7 +50,7 @@ resource "template_dir" "policy" {
 resource "null_resource" "custodian_initialization_function" {
   depends_on = [template_dir.lambda]
   triggers = {
-    build_number = "${timestamp()}"
+    build_number = timestamp()
   }
   provisioner "local-exec" {
     working_dir = path.module
@@ -63,7 +63,7 @@ resource "template_dir" "lambda" {
   destination_dir = "${path.module}/lambda"
 
   vars = {
-    cc_sqs = "${aws_sqs_queue.cc_queue.id}"
+    cc_sqs = aws_sqs_queue.cc_queue.id
   }
 }
 
@@ -85,14 +85,14 @@ resource "aws_iam_policy" "lambda_sqs_policy" {
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_sqs_attachment" {
-  role       = "${aws_iam_role.iam_for_sqs.name}"
-  policy_arn = "${aws_iam_policy.lambda_sqs_policy.arn}"
+  role       = aws_iam_role.iam_for_sqs.name
+  policy_arn = aws_iam_policy.lambda_sqs_policy.arn
 }
 
 resource "null_resource" "sqs_lambda_functions" {
   depends_on = [template_dir.lambda]
   triggers = {
-    build_number = "${timestamp()}"
+    build_number = timestamp()
   }
   provisioner "local-exec" {
     working_dir = path.module
@@ -108,7 +108,7 @@ resource "aws_lambda_function" "sqs_mailer" {
   handler          = "sqs_mailer.lambda_handler"
   runtime          = "python3.6"
   timeout          = 10
-  source_code_hash = "${base64sha256("${path.module}/lambda/sqs_mailer.zip")}"
+  source_code_hash = base64sha256("${path.module}/lambda/sqs_mailer.zip")
   environment {
     variables = {
       sender = var.sender
@@ -126,7 +126,7 @@ resource "aws_lambda_event_source_mapping" "sqs_event" {
 resource "null_resource" "cc_lambda_functions" {
   depends_on = [template_dir.policy]
   triggers = {
-    build_number = "${timestamp()}"
+    build_number = timestamp()
   }
   provisioner "local-exec" {
     working_dir = path.module

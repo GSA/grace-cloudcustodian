@@ -1,17 +1,15 @@
+version: 2
 jobs:
   validate:
     environment:
         AWS_DEFAULT_REGION: us-east-1
     docker:
-      - image: hashicorp/terraform:0.12.6
+      - image: hashicorp/terraform:latest
     steps:
       - checkout
       - run:
           name: Install python3
-          command: apk add --update python3
-      - run:
-          name: Install py3-virtualenv
-          command: apk add --update py3-virtualenv
+          command: apk add --update python3 py3-virtualenv
       - run:
           name: Install curl
           command: apk add --update curl && apk upgrade
@@ -26,7 +24,7 @@ jobs:
           command: if [[ -n "$(terraform fmt -write=false)" ]]; then echo "Some terraform files need be formatted, run 'terraform fmt' to fix"; exit 1; fi
       - run:
           name: Install tflint
-          command: curl -L -o /tmp/tflint.zip https://github.com/wata727/tflint/releases/download/v0.9.2/tflint_linux_amd64.zip && unzip /tmp/tflint.zip -d /usr/local/bin
+          command: curl -L -o /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v0.13.1/tflint_linux_amd64.zip && unzip /tmp/tflint.zip -d /usr/local/bin
       - run:
           name: Check Terraform configurations with tflint
           command: find . -name ".terraform" -prune -o -type f -name "*.tf" -exec dirname {} \;|sort -u | while read m; do (cd "$m" && tflint && echo "√ $m") || exit 1 ; done
