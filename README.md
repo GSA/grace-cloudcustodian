@@ -42,7 +42,6 @@ The code provided within this subcomponent will create the AWS resource required
 |------|-------------|:----:|:-----:|:-----:|
 | sender | (required) eMail address of sender for AWS SES" | string | n/a | yes |
 | schedule | (optional) The frequency at which custodian policy is ran to check for compliance." | string | rate(1 day) | no |
-| s3_bucket | (required) S3 bucket name/id where config service histories and snapshots are saved" | string | n/a | yes |
 | appenv | (optional) The environment in which the script is running (development | test | production)" | string | development | no |
 | recipient | (required) email address for aws account holder" | string | n/a | yes |
 | mfa_false_template | (optional) SES template name of MFA false" | string | MFAFalse | no |

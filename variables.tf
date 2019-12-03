@@ -9,11 +9,6 @@ variable "schedule" {
   default     = "rate(1 day)"
 }
 
-variable "s3_bucket" {
-  type        = string
-  description = "(required) S3 bucket name/id where config service histories and snapshots are saved"
-}
-
 variable "appenv" {
   type        = string
   description = "(optional) The environment in which the script is running (development | test | production)"
