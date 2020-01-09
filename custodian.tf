@@ -26,6 +26,7 @@ resource "aws_sqs_queue" "cc_queue" {
   tags = {
     Name = "Cloud Custodian"
   }
+  kms_master_key_id = var.kms_key_id
 }
 
 resource "template_dir" "policy" {

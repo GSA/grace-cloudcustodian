@@ -35,7 +35,8 @@ variable "key_expiration_template" {
 variable "password_expiration_template" {
   type        = string
   description = "(optional) SES template name of Password Expiration"
-  default     = "PasswordExpiration"
+  #tfsec:ignore:GEN001
+  default = "PasswordExpiration"
 }
 
 variable "excluded_tag" {
@@ -54,4 +55,9 @@ variable "temp_pass_template" {
   type        = string
   description = "(optional) SES template name of Temp Password Expired"
   default     = "TempPass"
+}
+
+variable "kms_key_id" {
+  type        = string
+  description = "(required) KMS key ID for sqs and lambda encryption"
 }
