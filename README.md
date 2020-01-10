@@ -50,6 +50,7 @@ The code provided within this subcomponent will create the AWS resource required
 | excluded_tag | (optional) excluded user tags to not disable" | string | tag:ServiceAccount | no |
 | excluded_value | (optional) excluded users to disable" | string | Excluded | no |
 | temp_pass_template | (optional) SES template name of Temp Password Expired" | string | TempPass | no |
+| kms_key_id | (required) KMS key ID for sqs and lambda encryption | string | n/a | yes |
 
 [top](#top)
 
@@ -77,10 +78,11 @@ include the following in your root terraform module:
 
 ```
 module "example_grace_cc" {
-  source    = "github.com/GSA/grace-cloudcustodian?ref=v0.1.1"
+  source    = "github.com/GSA/grace-cloudcustodian?ref=v0.1.2"
   appenv    = "development"
   sender    = "validated-sender@your.org"
   recipient = "validated-recipient@your.org"
+  kms_key_id = "c6af3dc4-0247-4638-a85d-892b8e66c754"
 }
 ```
 
