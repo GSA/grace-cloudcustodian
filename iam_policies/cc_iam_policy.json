@@ -18,6 +18,8 @@
         "iam:ListUsers",
         "iam:TagUser",
         "iam:UpdateAccessKey",
+        "kms:Decrypt",
+        "kms:Encrypt",
         "kms:GenerateDataKey",
         "securityhub:BatchImportFindings",
         "sqs:SendMessage",
