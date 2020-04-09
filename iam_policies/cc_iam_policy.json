@@ -7,6 +7,7 @@
         "iam:DeleteAccessKey",
         "iam:DeleteLoginProfile",
         "iam:GetLoginProfile",
+        "iam:GetUser",
         "iam:ListAccessKeys",
         "iam:ListGroupsForUser",
         "iam:ListMFADevices",
