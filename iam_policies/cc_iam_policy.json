@@ -1,35 +1,24 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "iam:*",
-                "lambda:*",
-                "sqs:*",
-		            "ses:*",
-		            "securityhub:*"
-            ],
-            "Resource": "*"
-        },
-	{
-            "Effect": "Allow",
-            "Action": "iam:CreateServiceLinkedRole",
-            "Resource": "*",
-            "Condition": {
-                "StringLike": {
-                    "iam:AWSServiceName": "securityhub.amazonaws.com"
-                }
-            }
-        },
-	{
-            "Effect": "Allow",
-            "Action": [
-                "iam:DeleteAccessKey",
-                "iam:UpdateAccessKey",
-                "iam:DeleteLoginProfile"
-            ],
-            "Resource": "*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:DeleteAccessKey",
+        "iam:DeleteLoginProfile",
+        "iam:GetLoginProfile",
+        "iam:ListAccessKeys",
+        "iam:ListGroupsForUser",
+        "iam:ListMFADevices",
+        "iam:ListVirtualMFADevices",
+        "iam:ListUsers",
+        "iam:UpdateAccessKey",
+        "sqs:SendMessage",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "*"
+    }
+  ]
 }
